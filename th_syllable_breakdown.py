@@ -4,12 +4,6 @@ from th_utils_classes import *
 from th_utils_regex import *
 from th_utils_tables import *
 
-pattern = f'เ[{C}]([{C}]|)ี([{T}]|)ยะ'
-
-syllable = ThaiSyllable("ไหล")
-syllable_string = syllable.syllable_string
-print(syllable_string)
-
 def check_true_blend(first_char, second_char):
     if second_char == 'ร' and first_char in R_BLENDING_INITIALS:
         return True
@@ -215,113 +209,104 @@ def process_tone(syllable):
     syllable.tone_mark = tone_mark
     syllable.tone = get_tone(syllable.initial_class, syllable.live_dead, syllable.vowel_duration, tone_mark)
 
-if re.search(f'[{C}]ึ', syllable_string):
-    syllable.vowel_default = '-ึ'
-    process_cluster(syllable, vert_vowel_char='ึ')
-elif re.search(f'[{C}]ุ', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ุ')
-elif re.search(f'[{C}]ู', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ู')
-elif re.search(f'[{C}]รร', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='รร', has_tone=False)
-elif re.search(f'[{C}]([{T}]|)ำ', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='ำ')
-elif re.search(f'[{C}]ฤ', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='ฤ', has_tone=False)
+def recognize_pattern(syllable):
+    syllable_string = syllable.syllable_string
 
-elif re.search(f'แ[{C}]([{C}]|)็[{C}]', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='็', has_tone=False)
-elif re.search(f'แ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='แ', fin_vowel_chars='ะ')
-elif re.search(f'แ[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='แ')
+    if re.search(f'[{C}]ึ', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ึ')
+    elif re.search(f'[{C}]ุ', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ุ')
+    elif re.search(f'[{C}]ู', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ู')
+    elif re.search(f'[{C}]รร', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='รร', has_tone=False)
+    elif re.search(f'[{C}]([{T}]|)ำ', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='ำ')
+    elif re.search(f'[{C}]ฤ', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='ฤ', has_tone=False)
 
-elif re.search(f'เ[{C}]([{C}]|)ี([{T}]|)ยะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ี', fin_vowel_chars='ยะ')
-elif re.search(f'เ[{C}]([{C}]|)ื([{T}]|)อะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ื', fin_vowel_chars='อะ')
-elif re.search(f'เ[{C}]([{C}]|)([{T}]|)อะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='อะ')
-elif re.search(f'เ[{C}]([{C}]|)([{T}]|)าะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='าะ')
-elif re.search(f'เ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='ะ')
-elif re.search(f'เ[{C}]([{C}]|)ี([{T}]|)ย([^์]|)', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ี', fin_vowel_chars='ย')
-elif re.search(f'เ[{C}]([{C}]|)ื([{T}]|)อ([^์]|)', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ื', fin_vowel_chars='อ')
-elif re.search(f'เ[{C}]([{C}]|)([{T}]|)อ([^์]|)', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='อ')
-elif re.search(f'เ[{C}]([{C}]|)([{T}]|)า', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='า')
-elif re.search(f'เ[{C}]([{C}]|)ิ([{T}]|)[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ิ')
-elif re.search(f'เ[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='เ')
-elif re.search(f'[{C}]([{T}]|)า', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='า')
-    process_cluster_one_final(syllable, 'า')
-elif re.search(f'[{C}]ิ', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ิ')
-elif re.search(f'[{C}]ี', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ี')
+    elif re.search(f'แ[{C}]([{C}]|)็[{C}]', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='็', has_tone=False)
+    elif re.search(f'แ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='แ', fin_vowel_chars='ะ')
+    elif re.search(f'แ[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='แ')
 
-elif re.search(f'[{C}]([{C}]|)ื([{T}]|)อ', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ื', fin_vowel_chars='อ')
-elif re.search(f'[{C}]ื([{T}]|)[{C}]', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ื')
+    elif re.search(f'เ[{C}]([{C}]|)ี([{T}]|)ยะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ี', fin_vowel_chars='ยะ')
+    elif re.search(f'เ[{C}]([{C}]|)ื([{T}]|)อะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ื', fin_vowel_chars='อะ')
+    elif re.search(f'เ[{C}]([{C}]|)([{T}]|)อะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='อะ')
+    elif re.search(f'เ[{C}]([{C}]|)([{T}]|)าะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='าะ')
+    elif re.search(f'เ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='ะ')
+    elif re.search(f'เ[{C}]([{C}]|)ี([{T}]|)ย([^์]|)', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ี', fin_vowel_chars='ย')
+    elif re.search(f'เ[{C}]([{C}]|)ื([{T}]|)อ([^์]|)', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ื', fin_vowel_chars='อ')
+    elif re.search(f'เ[{C}]([{C}]|)([{T}]|)อ([^์]|)', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='อ')
+    elif re.search(f'เ[{C}]([{C}]|)([{T}]|)า', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', fin_vowel_chars='า')
+    elif re.search(f'เ[{C}]([{C}]|)ิ([{T}]|)[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ', vert_vowel_char='ิ')
+    elif re.search(f'เ[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='เ')
+    elif re.search(f'[{C}]([{T}]|)า', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='า')
+    elif re.search(f'[{C}]ิ', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ิ')
+    elif re.search(f'[{C}]ี', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ี')
 
-elif re.search(f'โ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
-    process_cluster(syllable, init_vowel_char='โ', fin_vowel_chars='ะ')
-elif re.search(f'โ[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='โ')
+    elif re.search(f'[{C}]([{C}]|)ื([{T}]|)อ', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ื', fin_vowel_chars='อ')
+    elif re.search(f'[{C}]ื([{T}]|)[{C}]', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ื')
 
-elif re.search(f'ไ[{C}]ย([^์]|)', syllable_string):
-    process_cluster(syllable, init_vowel_char='ไ', fin_vowel_chars='ย')
-elif re.search(f'ไ[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='ไ')
-elif re.search(f'ใ[{C}]', syllable_string):
-    process_cluster(syllable, init_vowel_char='ใ')
+    elif re.search(f'โ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
+        process_cluster(syllable, init_vowel_char='โ', fin_vowel_chars='ะ')
+    elif re.search(f'โ[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='โ')
 
-elif re.search(f'[{C}]ั([{T}]|)วะ', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ั', fin_vowel_chars='วะ')
-elif re.search(f'[{C}]ั([{T}]|)ว', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ั', fin_vowel_chars='ว')
-elif re.search(f'[{C}]ั([{T}]|)[{C}]', syllable_string):
-    process_cluster(syllable, vert_vowel_char='ั')
-    process_cluster_one_final(syllable, 'ั')
-elif re.search(f'[{C}]([{T}]|)ะ', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='ะ')
-    process_cluster_one_final(syllable, 'ะ')
+    elif re.search(f'ไ[{C}]ย([^์]|)', syllable_string):
+        process_cluster(syllable, init_vowel_char='ไ', fin_vowel_chars='ย')
+    elif re.search(f'ไ[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='ไ')
+    elif re.search(f'ใ[{C}]', syllable_string):
+        process_cluster(syllable, init_vowel_char='ใ')
 
-elif re.search(f'[{C}]็อ[{C}]', syllable_string):
-    process_cluster(syllable, vert_vowel_char='็', fin_vowel_chars='อ', has_tone=False)
-elif re.search(f'[{C}]([{T}]|)อ', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='อ')
+    elif re.search(f'[{C}]ั([{T}]|)วะ', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ั', fin_vowel_chars='วะ')
+    elif re.search(f'[{C}]ั([{T}]|)ว', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ั', fin_vowel_chars='ว')
+    elif re.search(f'[{C}]ั([{T}]|)[{C}]', syllable_string):
+        process_cluster(syllable, vert_vowel_char='ั')
+    elif re.search(f'[{C}]([{T}]|)ะ', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='ะ')
 
-elif re.search(f'[{C}]([{T}]|)ว[{C}]', syllable_string):
-    process_cluster(syllable, fin_vowel_chars='ว')
-    process_cluster_one_final(syllable, 'ว')
+    elif re.search(f'[{C}]็อ[{C}]', syllable_string):
+        process_cluster(syllable, vert_vowel_char='็', fin_vowel_chars='อ', has_tone=False)
+    elif re.search(f'[{C}]([{T}]|)อ', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='อ')
 
-elif re.search(f'[{C}][{C}]', syllable_string):
-    print('implied oh')
+    elif re.search(f'[{C}]([{T}]|)ว[{C}]', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='ว')
 
-print('cluster')
-for thchar in syllable.thchars:
-    print(thchar.cluster)
+    elif re.search(f'[{C}][{C}]', syllable_string):
+        print('implied oh')
 
-process_roles(syllable)
-
-print('role')
-for thchar in syllable.thchars:
-    print(thchar.role)
-
-process_blend(syllable)
-process_initial_sound(syllable)
-process_initial_class(syllable)
-process_final_sound(syllable)
-process_vowel(syllable)
-process_live_dead(syllable)
-process_tone(syllable)
-
-print(syllable.getInformation())
+def breakdown(thai_string):
+    syllable = ThaiSyllable(thai_string)
+    recognize_pattern(syllable)
+    process_roles(syllable)
+    process_blend(syllable)
+    process_initial_sound(syllable)
+    process_initial_class(syllable)
+    process_final_sound(syllable)
+    process_vowel(syllable)
+    process_live_dead(syllable)
+    process_tone(syllable)
+    return syllable
