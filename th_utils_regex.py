@@ -68,7 +68,7 @@ th_chars = {
     'consonant_classes': {
         'low': ['ง','ญ','ณ','น','ม','ย','ร','ฤ','ล','ฦ','ว','ฬ','ค','ฅ','ฆ','ช','ซ','ฌ','ฑ','ฒ','ท','ธ','พ','ฟ','ภ','ฮ'],
         'high': ['ข','ฃ','ฉ','ฐ','ถ','ผ','ฝ','ศ','ษ','ส','ห'],
-        'mid': ['ก','จ','ฎ','ฏ','ด','ต','บ','ป','อ'],
+        'middle': ['ก','จ','ฎ','ฏ','ด','ต','บ','ป','อ'],
     },
 
     'low_consonants': ['ง','ญ','ณ','น','ม','ย','ร','ฤ','ล','ฦ','ว','ฬ'],
@@ -283,6 +283,12 @@ conversion_dicts = {
         'live': 'เป็น',
         'dead': 'ตาย',
     },
+
+    'en_th_classes': {
+        'middle': 'กลาง',
+        'high': 'สูง',
+        'low': 'ต่ำ',
+    }
 }
 
 
@@ -311,7 +317,7 @@ LOW_CONSONANTS = th_chars['consonant_classes']['low']
 UNPAIRED_LOW_CONSONANTS = th_chars['unpaired_low_consonants']
 PAIRED_LOW_CONSONANTS = th_chars['paired_low_consonants']
 HIGH_CONSONANTS = th_chars['consonant_classes']['high']
-MID_CONSONANTS = th_chars['consonant_classes']['mid']
+MIDDLE_CONSONANTS = th_chars['consonant_classes']['middle']
 
 LEADING_CONSONANTS = th_chars['leading_consonants']
 
@@ -336,3 +342,4 @@ TH_EN_FINAL_SOUNDS = conversion_dicts['th_en_final_sounds']
 EN_TH_TONES = conversion_dicts['en_th_tones']
 EN_TH_DURATION = conversion_dicts['en_th_duration']
 EN_TH_LIVE_DEAD = conversion_dicts['en_th_live_dead']
+EN_TH_CLASSES = conversion_dicts['en_th_classes']

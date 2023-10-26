@@ -144,8 +144,9 @@ def process_initial_sound(syllable):
         if syllable.initial_consonants[0].char in INITIAL_SOUNDS[initial_sound_key]:
             syllable.initial_sound = initial_sound_key
 
-def process_initial_class(syllable):
-    syllable.initial_class = syllable.initial_consonants_cluster[0].consonant_class
+def process_syllable_class(syllable):
+    syllable.initial_class = syllable.initial_consonants[0].consonant_class
+    syllable.syllable_class = syllable.initial_consonants_cluster[0].consonant_class
 
 def process_final_sound(syllable):
     final_sound = '-'
@@ -304,7 +305,7 @@ def breakdown(thai_string):
     process_roles(syllable)
     process_blend(syllable)
     process_initial_sound(syllable)
-    process_initial_class(syllable)
+    process_syllable_class(syllable)
     process_final_sound(syllable)
     process_vowel(syllable)
     process_live_dead(syllable)
@@ -338,6 +339,12 @@ if __name__ == '__main__':
             Tone: {syllable.getTone('en')}
             Duration: {syllable.getVowelDuration('en')}
             Final Sound: {syllable.getFinalSound('en')}
-        Extra:
-            
+        Extra EN:
+            Initial Class: {syllable.getInitialClass('th')}
+            Syllable Class: {syllable.getSyllableClass('th')}
+            Live Dead: {syllable.getLiveDead('th')}
+        Extra TH:
+            Initial Class: {syllable.getInitialClass('en')}
+            Syllable Class: {syllable.getSyllableClass('en')}
+            Live Dead: {syllable.getLiveDead('en')}
         ''')

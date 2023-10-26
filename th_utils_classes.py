@@ -85,7 +85,7 @@ class ThaiSyllable:
 
         self.true_blend = False
 
-        self.initial_pronunciation_sound = ''
+        self.syllable_class = ''
         self.initial_class = ''
         self.final_sound = ''
 
@@ -93,7 +93,7 @@ class ThaiSyllable:
         self.vowel_duration = ''
         self.vowel_short = ''
         self.vowel_long = ''
-        
+
         self.live_dead = ''
 
         self.tone_mark = ''
@@ -301,3 +301,14 @@ class ThaiSyllable:
             vowel_form = '-' + self.getFinalVowelsClusterString()
         vowel_form = self.getInitialVowelsClusterString() + vowel_form
         return vowel_form
+
+    def getInitialClass(self, lang):
+        if lang == 'en':
+            return self.initial_class
+        if lang == 'th':
+            return EN_TH_CLASSES[self.initial_class]
+    def getSyllableClass(self, lang):
+        if lang == 'en':
+            return self.syllable_class
+        if lang == 'th':
+            return EN_TH_CLASSES[self.syllable_class]
