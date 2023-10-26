@@ -85,11 +85,11 @@ class ThaiSyllable:
 
         self.true_blend = False
 
-        self.initial_sound = ''
+        self.initial_pronunciation_sound = ''
         self.initial_class = ''
         self.final_sound = ''
 
-        self.vowel_default = ''
+        self.vowel_sound = ''
         self.vowel_duration = ''
         self.vowel_short = ''
         self.vowel_long = ''
@@ -181,7 +181,7 @@ class ThaiSyllable:
         return self.initial_vowels_cluster
     def getInitialVowelsClusterString(self):
         if not self.getInitialVowelsClusterList():
-            return []
+            return ''
         string = ''
         for thchar in self.getInitialVowelsClusterList():
             string = string + thchar.getChar()
@@ -241,30 +241,63 @@ class ThaiSyllable:
             if thchar.role == 'initial_consonant':
                 return thchar.char
         return None
-    def getInitialConsonantPronunciationChar(self):
-        return 
+    def getInitialSound(self, lang):
+        if lang == 'th':
+            return self.initial_sound
+        if lang == 'en':
+            return TH_EN_INITIAL_SOUNDS[self.initial_sound]
     def getBlendingConsonantChar(self):
         for thchar in self.getInitialConsonantsClusterList():
             if thchar.role == 'blending_consonant':
                 return thchar.char
         return None
-    def getDefaultVowel(self):
-        return self.vowel_default
-    def getTone(self):
-        return self.tone
-    def getVowelDuration(self):
-        return self.vowel_duration
-    def getFinalSound(self):
-        return self.final_sound
+    def getBlendingSound(self, lang):
+        if not self.getBlendingConsonantChar():
+            return None
+        if lang == 'th':
+            return self.getBlendingConsonantChar()
+        if lang == 'en':
+            return TH_EN_INITIAL_SOUNDS[self.getBlendingConsonantChar()]
+    def getVowelSound(self, lang):
+        if lang == 'th':
+            return self.vowel_sound
+        if lang == 'en':
+            return TH_EN_VOWEL_SOUNDS[self.vowel_sound]
+    def getTone(self, lang):
+        if lang == 'en':
+            return self.tone
+        if lang == 'th':
+            return EN_TH_TONES[self.tone]
+    def getVowelDuration(self, lang):
+        if lang == 'en':
+            return self.vowel_duration
+        if lang == 'th':
+            return EN_TH_DURATION[self.vowel_duration]
+    def getLiveDead(self, lang):
+        if lang == 'en':
+            return self.live_dead
+        if lang == 'th':
+            return EN_TH_LIVE_DEAD[self.live_dead]
+    def getFinalSound(self, lang):
+        if lang == 'th':
+            return self.final_sound
+        if lang == 'en':
+            return TH_EN_FINAL_SOUNDS[self.final_sound]
     
     def getVowelList(self):
         if not self.initial_vowels_cluster and not self.final_vowels_cluster:
-            return None
+            return []
         return self.initial_vowels_cluster + self.final_vowels_cluster
     def getVowelString(self):
         if not self.getVowelList():
-            return None
+            return ''
         string = ''
         for thchar in self.getVowelList():
             string = string + thchar.getChar()
         return string
+    def getVowelForm(self):
+        vowel_form = ''
+        if self.getFinalVowelsClusterString():
+            vowel_form = '-' + self.getFinalVowelsClusterString()
+        vowel_form = self.getInitialVowelsClusterString() + vowel_form
+        return vowel_form

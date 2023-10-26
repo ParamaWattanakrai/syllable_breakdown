@@ -176,20 +176,20 @@ def process_vowel(syllable):
     vowel_string = syllable.getVowelString()
     if not vowel_string:
         if not syllable.final_consonants:
-            syllable.vowel_default = '-ะ'
+            syllable.vowel_sound = '-ะ'
         else:
-            syllable.vowel_default = 'โ-ะ'
+            syllable.vowel_sound = 'โ-ะ'
     else:
-        syllable.vowel_default = get_default_vowel(vowel_string)
+        syllable.vowel_sound = get_default_vowel(vowel_string)
 
-    if syllable.vowel_default in SHORT_LONG_VOWEL_PAIRS.get_forward_keys():
+    if syllable.vowel_sound in SHORT_LONG_VOWEL_PAIRS.get_forward_keys():
         syllable.vowel_duration = 'short'
-        syllable.vowel_short = syllable.vowel_default
-        syllable.vowel_long = SHORT_LONG_VOWEL_PAIRS[syllable.vowel_default]
+        syllable.vowel_short = syllable.vowel_sound
+        syllable.vowel_long = SHORT_LONG_VOWEL_PAIRS[syllable.vowel_sound]
     else:
         syllable.vowel_duration = 'long'
-        syllable.vowel_short = SHORT_LONG_VOWEL_PAIRS.reverse_get(syllable.vowel_default)
-        syllable.vowel_long = syllable.vowel_default
+        syllable.vowel_short = SHORT_LONG_VOWEL_PAIRS.reverse_get(syllable.vowel_sound)
+        syllable.vowel_long = syllable.vowel_sound
 
 def process_live_dead(syllable):
     if syllable.final_sound == '-':
@@ -320,17 +320,24 @@ if __name__ == '__main__':
             Leading Consonant: {syllable.getBlendingConsonantChar()}
             Initial Consonant: {syllable.getInitialConsonantChar()}
             Blending Consonant: {syllable.getBlendingConsonantChar()}
-            Vowel Form: {syllable.getVowelString()}
+            Vowel Form: {syllable.getVowelForm()}
             Tone Mark: {syllable.getToneMarksClusterString()}
-            Duration: {syllable.getVowelDuration()}
+            Duration: {syllable.getVowelDuration('th')}
             Final Consonants: {syllable.getFinalConsonantsClusterString()}
         Pronunciation:
-            Initial Sound: {syllable.getInitialConsonantChar()} # WIP
-            Blending Consonant: {syllable.getBlendingConsonantChar()}
-            Vowel Sound: {syllable.getDefaultVowel()}
-            Tone: {syllable.getTone()}
-            Duration: {syllable.getVowelDuration()}
-            Final Sound: {syllable.getFinalSound()}
+            Initial Sound: {syllable.getInitialSound('th')}
+            Blending Consonant: {syllable.getBlendingSound('th')}
+            Vowel Sound: {syllable.getVowelSound('th')}
+            Tone: {syllable.getTone('th')}
+            Duration: {syllable.getVowelDuration('th')}
+            Final Sound: {syllable.getFinalSound('th')}
         Transliteration:
+            Initial Sound: {syllable.getInitialSound('en')}
+            Blending Consonant: {syllable.getBlendingSound('en')}
+            Vowel Sound: {syllable.getVowelSound('en')}
+            Tone: {syllable.getTone('en')}
+            Duration: {syllable.getVowelDuration('en')}
+            Final Sound: {syllable.getFinalSound('en')}
+        Extra:
             
         ''')

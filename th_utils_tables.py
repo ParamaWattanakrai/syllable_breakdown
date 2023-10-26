@@ -63,13 +63,13 @@ def check_ambiguous_blend(vowel, first_char, second_char):
 
 def get_tone(initial_class, live_dead, duration, tone_mark):
     tone_table = {
-        ('mid','live','short',''): 'mid',
+        ('mid','live','short',''): 'middle',
         ('mid','live','short','่'): 'low',
         ('mid','live','short','้'): 'falling',
         ('mid','live','short','๊'): 'high',
         ('mid','live','short','๋'): 'rising',
 
-        ('mid','live','long',''): 'mid',
+        ('mid','live','long',''): 'middle',
         ('mid','live','long','่'): 'low',
         ('mid','live','long','้'): 'falling',
         ('mid','live','long','๊'): 'high',
@@ -99,11 +99,11 @@ def get_tone(initial_class, live_dead, duration, tone_mark):
         ('high','dead','long',''): 'low',
         ('high','dead','long','้'): 'falling',
 
-        ('low','live','short',''): 'mid',
+        ('low','live','short',''): 'middle',
         ('low','live','short','่'): 'falling',
         ('low','live','short','้'): 'high',
 
-        ('low','live','long',''): 'mid',
+        ('low','live','long',''): 'middle',
         ('low','live','long','่'): 'falling',
         ('low','live','long','้'): 'high',
 

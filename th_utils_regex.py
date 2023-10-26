@@ -175,8 +175,114 @@ th_chars = {
         '-ำ': ['ำ'], #amam
         '-ฤ': ['ฤ'],
     },
+}
 
-    'consonant_pronounciation'
+conversion_dicts = {
+    'th_en_initial_sounds': {
+        'ก': 'k',
+        'ค': 'kh',
+        'ง': 'ng',
+        'จ': 'j',
+        'ช': 'ch',
+        'ซ': 's',
+        'ย': 'y',
+        'ด': 'd',
+        'ต': 't',
+        'ท': 'th',
+        'น': 'n',
+        'บ': 'b',
+        'ป': 'p',
+        'พ': 'ph',
+        'ฟ': 'f',
+        'ม': 'm',
+        'ร': 'r',
+        'ล': 'l',
+        'ว': 'w',
+        'ฮ': 'h',
+        'อ': '-',
+    },
+
+    'th_en_vowel_sounds': {
+        '-ะ': 'a',
+        '-า': 'a',
+        'แ-ะ': 'ae',
+        'แ-': 'ae',
+        'เ-าะ': 'o',
+        '-อ': 'o',
+        'เ-ะ': 'e',
+        'เ-': 'e',
+        'เ-อะ': 'eo',
+        'เ-อ': 'eo',
+        'โ-ะ': 'oh',
+        'โ-': 'oh',
+        '-ิ': 'i',
+        '-ี': 'i',
+        '-ึ': 'ue',
+        '-ื': 'ue',
+        '-ุ': 'u',
+        '-ู': 'u',
+
+        'เ-ียะ': 'ia',
+        'เ-ีย': 'ia',
+        'เ-ือะ': 'uea',
+        'เ-ือ': 'uea',
+        '-ัวะ': 'ua',
+        '-ัว': 'ua',
+
+        'ไ-': 'ai',
+        '-าย': 'ai',
+        '-็อย': 'oi',
+        '-อย': 'oi',
+        'เ-ย': 'eoi',
+        'โ-ย': 'eoi',
+        '-ุย': 'ui',
+        'เ-ือย': 'ueai',
+        '-วย': 'uai',
+        '-วาย': 'uai',
+
+        'เ-า': 'ao',
+        '-าว': 'ao',
+        'แ-็ว': 'aeo',
+        'แ-ว': 'aeo',
+        'เ-อว': 'eou',
+        'เ-็ว': 'eu',
+        'เ-ว': 'eu',
+        '-ิว': 'iw',
+        'เ-ียว': 'iao',
+
+        '-ำ': 'am',
+        '-ฤ': 'rue',
+    },
+
+    'th_en_final_sounds': {
+        'ก': 'k',
+        'บ': 'p',
+        'ด': 't',
+        'น': 'n',
+        'ม': 'm',
+        'ย': 'y',
+        'ว': 'w',
+        'ง': 'ng',
+        '-': '-'
+    },
+
+    'en_th_tones': {
+        'middle': 'สามัญ',
+        'low': 'เอก',
+        'falling': 'โท',
+        'high': 'ตรี',
+        'rising': 'จัตวา',
+    },
+
+    'en_th_duration': {
+        'long': 'ยาว',
+        'short': 'สั้น',
+    },
+
+    'en_th_live_dead': {
+        'live': 'เป็น',
+        'dead': 'ตาย',
+    },
 }
 
 
@@ -223,3 +329,10 @@ LIVE_FINAL_SOUNDS = th_chars['live_final_sounds']
 DEAD_FINAL_SOUNDS = th_chars['dead_final_sounds']
 
 VOWEL_FORMS = th_chars['vowel_forms']
+
+TH_EN_INITIAL_SOUNDS = conversion_dicts['th_en_initial_sounds']
+TH_EN_VOWEL_SOUNDS = conversion_dicts['th_en_vowel_sounds']
+TH_EN_FINAL_SOUNDS = conversion_dicts['th_en_final_sounds']
+EN_TH_TONES = conversion_dicts['en_th_tones']
+EN_TH_DURATION = conversion_dicts['en_th_duration']
+EN_TH_LIVE_DEAD = conversion_dicts['en_th_live_dead']
