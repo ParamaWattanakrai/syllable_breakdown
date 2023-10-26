@@ -27,7 +27,7 @@ def process_cluster(syllable, init_vowel_char='', vert_vowel_char='', fin_vowel_
             return
         for i in range(start_index, len(syllable.thchars)):
             if syllable.thchars[i].char in TONE_MARKS:
-                thchar.selfCluster('tone_marks_cluster')
+                syllable.thchars[i].selfCluster('tone_marks_cluster')
                 continue
             syllable.thchars[i].selfCluster('final_consonants_cluster')
 
