@@ -343,7 +343,7 @@ if __name__ == '__main__':
             print(thchar.getInformation())
         print(f'''
         Components:
-            Leading Consonant: {syllable.getBlendingConsonantChar()}
+            Leading Consonant: {syllable.getLeadingConsonantChar()}
             Initial Consonant: {syllable.getInitialConsonantChar()}
             Blending Consonant: {syllable.getBlendingConsonantChar()}
             Vowel Form: {syllable.getVowelForm()}
