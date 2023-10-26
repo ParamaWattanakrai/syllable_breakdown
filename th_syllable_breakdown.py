@@ -205,9 +205,9 @@ def process_vowel(syllable):
 
 def process_live_dead(syllable):
     if syllable.final_sound == '-':
-        if syllable.vowel_duration == 'short':
+        if syllable.vowel_duration == 'short' or syllable.getVowelString() == '็' or syllable.getVowelString() == '่':
             syllable.live_dead = 'dead'
-        if syllable.vowel_duration == 'long':
+        elif syllable.vowel_duration == 'long':
             syllable.live_dead = 'live'
         return
     if syllable.final_sound in DEAD_FINAL_SOUNDS:
@@ -310,8 +310,16 @@ def recognize_pattern(syllable):
     elif re.search(f'[{C}][{C}]', syllable_string):
         syllable.thchars[0].selfCluster('initial_consonants_cluster')
         syllable.thchars[1].selfCluster('final_consonants_cluster')
+    elif re.search(f'[{C}]็', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='็')
+    elif re.search(f'[{C}]่', syllable_string):
+        process_cluster(syllable, fin_vowel_chars='่')
     elif re.search(f'[{C}]', syllable_string):
         syllable.thchars[0].selfCluster('initial_consonants_cluster')
+
+def overwrite_irregularities(syllable):
+    if syllable.syllable_string == 'ก็':
+        syllable.tone = 'falling'
 
 def breakdown(thai_string):
     syllable = ThaiSyllable(thai_string)
@@ -324,6 +332,7 @@ def breakdown(thai_string):
     process_vowel(syllable)
     process_live_dead(syllable)
     process_tone(syllable)
+    overwrite_irregularities(syllable)
     return syllable
 
 if __name__ == '__main__':
