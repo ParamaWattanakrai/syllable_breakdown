@@ -119,8 +119,8 @@ def process_roles(syllable):
     if syllable.getToneMarksClusterList():
         for thchar in syllable.getToneMarksClusterList():
             thchar.selfRole('tone_mark')
-
-    elif len(initial_consonants_cluster) == 2:
+            
+    if len(initial_consonants_cluster) == 2:
         if check_leading(initial_consonants_cluster[0].char, initial_consonants_cluster[1].char):
             initial_consonants_cluster[0].selfRole('leading_consonant')
             initial_consonants_cluster[0].getAfter(0).selfRole('initial_consonant')
@@ -128,7 +128,7 @@ def process_roles(syllable):
             initial_consonants_cluster[0].selfRole('initial_consonant')
             initial_consonants_cluster[-1].selfRole('blending_consonant')
     elif initial_consonants_cluster[-1] is initial_consonants_cluster[0]:
-        initial_consonants_cluster[0].selfRole('initial_consonant') 
+        initial_consonants_cluster[0].selfRole('initial_consonant')
     
     if final_consonants_cluster:
         final_consonants_cluster[0].selfRole('final_consonant')
@@ -151,9 +151,7 @@ def process_syllable_class(syllable):
 def process_final_sound(syllable):
     final_sound = '-'
     vowel_string = syllable.getVowelString()
-    if not vowel_string:
-        syllable.final_sound = final_sound
-        return
+
     if not syllable.final_consonants:
         if vowel_string[-1] == 'ำ':
             final_sound = 'ม'
@@ -163,9 +161,19 @@ def process_final_sound(syllable):
             final_sound = 'ว'
         syllable.final_sound = final_sound
         return
-    for final_sound_key in FINAL_SOUNDS.keys():
-        if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
-            final_sound = final_sound_key
+    
+    if len(syllable.final_consonants) == 1:
+        for final_sound_key in FINAL_SOUNDS.keys():
+            if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
+                final_sound = final_sound_key
+    else:
+        for final_consonant in syllable.final_consonants:
+            if final_consonant.getChar() == '์' or final_consonant.getAfterChar(0) == '์':
+                continue
+            for final_sound_key in FINAL_SOUNDS.keys():
+                if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
+                    final_sound = final_sound_key
+            continue
     syllable.final_sound = final_sound
 
 def get_default_vowel(vowel_string):
@@ -269,7 +277,7 @@ def recognize_pattern(syllable):
 
     elif re.search(f'โ[{C}]([{C}]|)([{T}]|)ะ', syllable_string):
         process_cluster(syllable, init_vowel_char='โ', fin_vowel_chars='ะ')
-    elif re.search(f'โ[{C}]', syllable_string):
+    elif re.search(f'โ[{C}]([{T}]|)', syllable_string):
         process_cluster(syllable, init_vowel_char='โ')
 
     elif re.search(f'ไ[{C}]ย([^์]|)', syllable_string):
