@@ -20,7 +20,7 @@ class ThaiCharacter():
             chars_after.append(char.char)
         return f'''
             Character: {self.char}
-            In Syllable: {self.syllable.string}
+            In Syllable: {self.syllable.syllable_string}
             Position: {self.position}
             Class: {self.consonant_class}
             In Cluster: {self.cluster}

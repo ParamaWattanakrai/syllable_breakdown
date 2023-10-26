@@ -120,7 +120,7 @@ def process_roles(syllable):
         for thchar in syllable.getToneMarksClusterList():
             thchar.selfRole('tone_mark')
 
-    if len(initial_consonants_cluster) == 2:
+    elif len(initial_consonants_cluster) == 2:
         if check_leading(initial_consonants_cluster[0].char, initial_consonants_cluster[1].char):
             initial_consonants_cluster[0].selfRole('leading_consonant')
             initial_consonants_cluster[0].getAfter(0).selfRole('initial_consonant')
@@ -128,7 +128,7 @@ def process_roles(syllable):
             initial_consonants_cluster[0].selfRole('initial_consonant')
             initial_consonants_cluster[-1].selfRole('blending_consonant')
     elif initial_consonants_cluster[-1] is initial_consonants_cluster[0]:
-        initial_consonants_cluster[0].selfRole('initial_consonant')
+        initial_consonants_cluster[0].selfRole('initial_consonant') 
     
     if final_consonants_cluster:
         final_consonants_cluster[0].selfRole('final_consonant')
@@ -297,7 +297,10 @@ def recognize_pattern(syllable):
         process_cluster(syllable, fin_vowel_chars='ว')
 
     elif re.search(f'[{C}][{C}]', syllable_string):
-        print('implied oh')
+        syllable.thchars[0].selfCluster('initial_consonants_cluster')
+        syllable.thchars[1].selfCluster('final_consonants_cluster')
+    elif re.search(f'[{C}]', syllable_string):
+        syllable.thchars[0].selfCluster('initial_consonants_cluster')
 
 def breakdown(thai_string):
     syllable = ThaiSyllable(thai_string)
