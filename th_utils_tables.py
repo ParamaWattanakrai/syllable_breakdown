@@ -60,6 +60,7 @@ def check_ambiguous_blend(vowel, first_char, second_char):
         ('โ','ห','ฬ'): False,
     }
     return ambiguous_table[(vowel, first_char, second_char)]
+
 def get_tone(initial_class, live_dead, duration, tone_mark):
     tone_table = {
         ('mid','live','short',''): 'mid',

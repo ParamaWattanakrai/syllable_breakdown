@@ -110,44 +110,6 @@ class ThaiSyllable:
         for index, thchar in enumerate(self.thchars):
             thchar.before = self.thchars[:index]
             thchar.after = self.thchars[index+1:]
-
-    def getInformation(self):
-        information = f'''
-            Syllable String: {self.syllable_string}
-            Initial Vowels Cluster: {self.getInitialVowelsClusterString()}
-            Initial Consonants Cluster: {self.getInitialConsonantsClusterString()}
-            Tone Marks Cluster: {self.getToneMarksClusterString()}
-            Final Vowels Cluster: {self.getFinalVowelsClusterString()}
-            Final Consonants Cluster: {self.getFinalConsonantsClusterString()}
-
-            Initial Sound: {self.initial_sound}
-            Inital Class: {self.initial_class}
-            Final Sound: {self.final_sound}
-            
-            Vowel Form: {self.getVowelString()}
-            Vowel Default Form: {self.vowel_default}
-            Vowel Duration: {self.vowel_duration}
-
-            Vowel Short Form: {self.vowel_short}
-            Vowel Long Form: {self.vowel_long}
-
-            Live/Dead: {self.live_dead}
-
-            Tone Mark: {self.getToneMarksClusterString()}
-            Tone: {self.tone}
-            '''
-        information = f'''
-             Leading Consonant: {self.getLeadingConsonantChar()}
-             Initial Consonant: {self.getInitialConsonantChar()}
-             Blending Consonant: {self.getBlendingConsonantChar()}
-
-             Vowel Default: {self.getDefaultVowel()}
-             Vowel Duration: {self.getVowelDuration()}
-             Tone: {self.getTone()}
-
-             Final Sound: {self.getFinalSound()}
-             '''
-        return information
     def updateCluster(self):
         if self.getInitialVowelsClusterList():
             for thchar in self.getInitialVowelsClusterList():
@@ -212,8 +174,6 @@ class ThaiSyllable:
             self.silent_characters.append(char)
         else:
             return None
-
-    # Get Clusters
 
     def getInitialVowelsClusterList(self):
         if not self.initial_vowels_cluster:
@@ -281,6 +241,8 @@ class ThaiSyllable:
             if thchar.role == 'initial_consonant':
                 return thchar.char
         return None
+    def getInitialConsonantPronunciationChar(self):
+        return 
     def getBlendingConsonantChar(self):
         for thchar in self.getInitialConsonantsClusterList():
             if thchar.role == 'blending_consonant':

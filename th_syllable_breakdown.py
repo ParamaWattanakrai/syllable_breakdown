@@ -310,3 +310,27 @@ def breakdown(thai_string):
     process_live_dead(syllable)
     process_tone(syllable)
     return syllable
+
+if __name__ == '__main__':
+    while True:
+        thai_string = input('Input Thai string: ')
+        syllable = breakdown(thai_string)
+        print(f'''
+        Components:
+            Leading Consonant: {syllable.getBlendingConsonantChar()}
+            Initial Consonant: {syllable.getInitialConsonantChar()}
+            Blending Consonant: {syllable.getBlendingConsonantChar()}
+            Vowel Form: {syllable.getVowelString()}
+            Tone Mark: {syllable.getToneMarksClusterString()}
+            Duration: {syllable.getVowelDuration()}
+            Final Consonants: {syllable.getFinalConsonantsClusterString()}
+        Pronunciation:
+            Initial Sound: {syllable.getInitialConsonantChar()} # WIP
+            Blending Consonant: {syllable.getBlendingConsonantChar()}
+            Vowel Sound: {syllable.getDefaultVowel()}
+            Tone: {syllable.getTone()}
+            Duration: {syllable.getVowelDuration()}
+            Final Sound: {syllable.getFinalSound()}
+        Transliteration:
+            
+        ''')

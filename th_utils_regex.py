@@ -175,6 +175,8 @@ th_chars = {
         '-ำ': ['ำ'], #amam
         '-ฤ': ['ฤ'],
     },
+
+    'consonant_pronounciation'
 }
 
 
