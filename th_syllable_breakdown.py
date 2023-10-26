@@ -119,7 +119,7 @@ def process_roles(syllable):
     if syllable.getToneMarksClusterList():
         for thchar in syllable.getToneMarksClusterList():
             thchar.selfRole('tone_mark')
-            
+
     if len(initial_consonants_cluster) == 2:
         if check_leading(initial_consonants_cluster[0].char, initial_consonants_cluster[1].char):
             initial_consonants_cluster[0].selfRole('leading_consonant')
@@ -130,11 +130,22 @@ def process_roles(syllable):
     elif initial_consonants_cluster[-1] is initial_consonants_cluster[0]:
         initial_consonants_cluster[0].selfRole('initial_consonant')
     
-    if final_consonants_cluster:
+    if len(final_consonants_cluster) == 1:
         final_consonants_cluster[0].selfRole('final_consonant')
-        if final_consonants_cluster[-1].char == '์':
-            final_consonants_cluster[-1].selfRole('silent_character')
-            final_consonants_cluster[-2].selfRole('silent_character')
+        return
+    for final_consonant in final_consonants_cluster:
+        found_final_consonant = False
+        final_consonant.selfRole('silent_character')
+        if found_final_consonant:
+            continue
+        if final_consonant.getChar() == '์' or final_consonant.getAfterChar(0) == '์':
+            continue
+        else:
+            for final_sound_key in FINAL_SOUNDS.keys():
+                if final_consonant.getChar() in FINAL_SOUNDS[final_sound_key]:
+                    final_consonant.selfRole('final_consonant')
+                    found_final_consonant = True
+                    break
 
 def process_blend(syllable):
     syllable.true_blend = check_true_blend(syllable.getInitialConsonantChar(), syllable.getBlendingConsonantChar())
@@ -162,18 +173,10 @@ def process_final_sound(syllable):
         syllable.final_sound = final_sound
         return
     
-    if len(syllable.final_consonants) == 1:
-        for final_sound_key in FINAL_SOUNDS.keys():
-            if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
-                final_sound = final_sound_key
-    else:
-        for final_consonant in syllable.final_consonants:
-            if final_consonant.getChar() == '์' or final_consonant.getAfterChar(0) == '์':
-                continue
-            for final_sound_key in FINAL_SOUNDS.keys():
-                if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
-                    final_sound = final_sound_key
-            continue
+    for final_sound_key in FINAL_SOUNDS.keys():
+        if syllable.final_consonants[0].char in FINAL_SOUNDS[final_sound_key]:
+            final_sound = final_sound_key
+
     syllable.final_sound = final_sound
 
 def get_default_vowel(vowel_string):
@@ -327,6 +330,8 @@ if __name__ == '__main__':
     while True:
         thai_string = input('Input Thai string: ')
         syllable = breakdown(thai_string)
+        for thchar in syllable.thchars:
+            print(thchar.getInformation())
         print(f'''
         Components:
             Leading Consonant: {syllable.getBlendingConsonantChar()}

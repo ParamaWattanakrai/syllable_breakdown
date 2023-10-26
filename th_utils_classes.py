@@ -60,6 +60,7 @@ class ThaiCharacter():
         return self.syllable.assignRole(self, role)
 
     def assignClass(self):
+        self.consonant_class = None
         for consonant_class_key in CONSONANT_CLASSES.keys():
             if self.char in CONSONANT_CLASSES[consonant_class_key]:
                 self.consonant_class = consonant_class_key
