@@ -1,7 +1,44 @@
 # Thai Syllable Breakdown
 
-## A Python algorithm that could extract phonetic information and more from a Thai syllable.
-A part of Waiyakon project
+A Python algorithm that could extract phonetic information and more from a Thai syllable.<br>
+*A part of Waiyakon project*
+
+## Demonstration
+
+```bash
+Input Thai string: เหลือง
+
+        Components:
+            Leading Consonant: ห
+            Initial Consonant: ล
+            Blending Consonant: None
+            Vowel Form: เ-ือ
+            Tone Mark:
+            Duration: ยาว
+            Final Consonants: ง
+        Pronunciation:
+            Initial Sound: ล
+            Blending Consonant: None
+            Vowel Sound: เ-ือ
+            Tone: สามัญ
+            Duration: ยาว
+            Final Sound: ง
+        Transliteration:
+            Initial Sound: l
+            Blending Consonant: None
+            Vowel Sound: uea
+            Tone: middle
+            Duration: long
+            Final Sound: ng
+        Extra TH:
+            Initial Class: ต่ำ
+            Syllable Class: สูง
+            Live Dead: เป็น
+        Extra EN:
+            Initial Class: low
+            Syllable Class: high
+            Live Dead: live
+```
 
 ## What it can do
 - **Find these components of a syllable**
