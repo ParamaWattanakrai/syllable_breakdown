@@ -164,13 +164,14 @@ def process_final_sound(syllable):
     vowel_string = syllable.getVowelString()
 
     if not syllable.final_consonants:
-        if vowel_string[-1] == 'ำ':
+        if not vowel_string:
+            syllable.final_sound = final_sound
+        elif vowel_string[-1] == 'ำ':
             final_sound = 'ม'
-        if vowel_string[0] == 'ไ' or vowel_string[0] == 'ใ':
+        elif vowel_string[0] == 'ไ' or vowel_string[0] == 'ใ':
             final_sound = 'ย'
-        if vowel_string[0] == 'เ' and vowel_string[1] == 'า':
+        elif vowel_string[0] == 'เ' and vowel_string[1] == 'า':
             final_sound = 'ว'
-        syllable.final_sound = final_sound
         return
     
     for final_sound_key in FINAL_SOUNDS.keys():
