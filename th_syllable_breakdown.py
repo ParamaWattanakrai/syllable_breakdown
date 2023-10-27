@@ -219,7 +219,6 @@ def process_live_dead(syllable):
 
 def process_tone(syllable):
     tone_mark = syllable.getToneMarksClusterString()
-    print(tone_mark)
     syllable.tone_mark = tone_mark
     syllable.tone = get_tone(syllable.initial_class, syllable.live_dead, syllable.vowel_duration, tone_mark)
 
