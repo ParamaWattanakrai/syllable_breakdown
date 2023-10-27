@@ -367,11 +367,11 @@ if __name__ == '__main__':
             Tone: {syllable.getTone('en')}
             Duration: {syllable.getVowelDuration('en')}
             Final Sound: {syllable.getFinalSound('en')}
-        Extra EN:
+        Extra TH:
             Initial Class: {syllable.getInitialClass('th')}
             Syllable Class: {syllable.getSyllableClass('th')}
             Live Dead: {syllable.getLiveDead('th')}
-        Extra TH:
+        Extra EN:
             Initial Class: {syllable.getInitialClass('en')}
             Syllable Class: {syllable.getSyllableClass('en')}
             Live Dead: {syllable.getLiveDead('en')}
