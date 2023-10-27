@@ -172,6 +172,8 @@ def process_final_sound(syllable):
             final_sound = 'ย'
         elif vowel_string[0] == 'เ' and vowel_string[1] == 'า':
             final_sound = 'ว'
+        else:
+            syllable.final_sound = final_sound
         return
     
     for final_sound_key in FINAL_SOUNDS.keys():
