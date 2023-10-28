@@ -191,6 +191,8 @@ def process_vowel(syllable):
     if not vowel_string:
         if not syllable.final_consonants:
             syllable.vowel_sound = '-ะ'
+        elif syllable.final_consonants[0].getChar() == 'ร':
+            syllable.vowel_sound = '-อ'
         else:
             syllable.vowel_sound = 'โ-ะ'
     else:
