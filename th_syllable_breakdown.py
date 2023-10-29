@@ -312,7 +312,8 @@ def recognize_pattern(syllable):
 
     elif re.search(f'[{C}][{C}]', syllable_string):
         syllable.thchars[0].selfCluster('initial_consonants_cluster')
-        syllable.thchars[1].selfCluster('final_consonants_cluster')
+        for i in range(len(syllable.thchars)-1):
+            syllable.thchars[i+1].selfCluster('final_consonants_cluster')
     elif re.search(f'[{C}]็', syllable_string):
         process_cluster(syllable, fin_vowel_chars='็')
     elif re.search(f'[{C}]่', syllable_string):
